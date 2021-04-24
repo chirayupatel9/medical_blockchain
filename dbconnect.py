@@ -1,10 +1,11 @@
-from typing import List, Any
+import json
 
-from db_config import block_db, patients, doctor
-import re
+from flask import jsonify
+from bson.json_util import dumps, loads
+from db_config import patients, doctors, admin
 
 DOCTOR_USER_SCHEMA = {
-    "_id": "5fe6323443a9a0cb53917487",
+    "_id": "60756d56c44fb6fd55337f82",
     "name": "jondoe",
     "type": "Dentist",
     "specialist": "ortho-dentist",
@@ -13,93 +14,113 @@ DOCTOR_USER_SCHEMA = {
 }
 
 PATIENT_SCHEMA = {
-    "patientname": "jondoe",
+    "_id": "60756d56c44fb6fd55337f82",
+    "patientname": "jondoe2",
     "patientnumber": "12345",
     "patientage": "25",
     "diease": "fever",
-    "prev_block_hash": ""
+    "doctor_assigned": {
+        "doctorname": "whatever",
+        "doctor_notes": "whatever",
+    }
 }
-
-block_counts = block_db.list_collection_names()
-CURRENT_BLOCK = len(block_counts)
+ADMIN_SCHEMA = {
+    "name": "jondoe1",
+    'email': 'abc@abc.com',
+    "password": "123451",
+    "confirm_password": "123451"
+}
 
 
 # Function to create a doctor
 # Parameters : doctor_set dictionary object
-def add_doctor(userdoctor):
-    query = {"name": userdoctor["name"]}
-    if doctor.count_documents(query) == 1:
+def add_doctor_to_db(userdoctor):
+    query = {"doctorname": userdoctor["doctorname"]}
+    if doctors.count_documents(query) == 1:
         return None
-    x = doctor.insert_one(userdoctor)
-    return x.inserted_id, print('done')
+    x = doctors.insert_one(userdoctor)
+    return print('done')
 
+
+# add_doctor_to_db(DOCTOR_USER_SCHEMA)
 
 # Function to create a patient
 # Parameters : patient_set dictionary object
-def add_patient(addpatient):
+def add_patient_to_db(addpatient):
     query = {"patientname": addpatient["patientname"]}
     if patients.count_documents(query) == 1:
         return None
     x = patients.insert_one(addpatient)
-    return x.inserted_id, print('done')
+    return x
 
 
-def fetch_prev_block():
-    all_pat = patients.find()
-    res = []
-    for patient in all_pat:
-        patient["prev_block_hash"] = str(patient["prev_block_hash"])
-        res.append(patient["prev_block_hash"])
-    return res[-1]
+# add_patient_to_db(PATIENT_SCHEMA)
 
 
-fetch_prev_block()
+# Function for Updating the patient
+# Parameters : patient_set dictionary object
+def updating_patient(updatepat):
+    query = {"patientname": updatepat["patientname"]}
+    if patients.count_documents(query) == 1:
+        x = patients.replace_one(query, updatepat)
+    return 'done'
 
 
-# try to fetch cb from database
+def assigned_doc_to_pat(pat):
+    query = {'patientname': pat['patientname']}
+    if patients.count_documents(query) == 1:
+        x = patients.update_one(query, {"$set": {"doctor_assigned": {"doctorname": pat['doctorname'],
+                                                                     "doctor_notes": pat['doctor_notes'], }}})
+    return 'done'
 
 
-# ADDING TRANSACTION AND A BLOCK AFTER EVERY 10 TRANSACTIONS.
-def add_transaction(inter):
-    blocks = block_db.list_collection_names()
-    block_count = blocks
-    print(blocks)
-    block_count = block_count[-1:]
-    block_count = str(block_count)
-    block_count = block_count.split('transactions')[1].split("'")[0]
-    block_count = int(block_count)
-    print(block_count)
-    current_block = block_count
-    print("current block", current_block)
-    transactions = block_db[str('transactions' + str(current_block))]
-    all_trans = transactions.find()
-    total_transactions = []
-    query = {"transactions": inter["transactions"]}
-
-    if transactions.count_documents(query) == 1:
-        return None
-
-    for transaction in all_trans:
-        transaction["transactions"] = str(transaction["transactions"])
-        total_transactions.append(transaction["transactions"])
-    print('total len and total trans', len(blocks), len(total_transactions))
-
-    if len(total_transactions) < 10:
-        x = transactions.insert_one(inter)
-        print(total_transactions)
-        x.inserted_id, print('inserted done')
-    else:
-        current_block += 1
-        transactions = block_db[str('transactions' + str(current_block))]
-        print("current block incremented", current_block)
-        x = transactions.insert_one(inter)
-        x.inserted_id, print('inserted done to new block')
-
-    return print("done")
+patna = {
+    'patientname': 'jondoe1', 'doctorname': 'doctor 2', "doctor_notes": 'corona'
+}
+# assigned_doc_to_pat(patna)
 
 
-tas = {"transactions": 'genesis'}
+# updating_patient(PATIENT_SCHEMA)
 
-# add_transaction(tas)
+# Function for Updating the patient
+# Parameters : patient_set dictionary object
+def fetch_all_patient():
+    fap = patients.find({})
+    list_cur = list(fap)
+    json_data = dumps(list_cur)
+    return json_data
+
+
+# print(fetch_all_patient())
+def fetch_patient(pname):
+    fap = patients.find_one({'patientname': pname})
+    json_data = dumps(fap)
+    return json_data
+
+
+# print(fetch_all_patient())
+
+
 # now adding integrity to blockchain so create a new table with same transaction hash so
 # it will be easy for checking its integrity
+def adding_admin(adm):
+    query = {"name": adm["name"]}
+    if admin.count_documents(query) == 1:
+        return print("already there")
+    if [{"password": adm["password"]} == {"confirm_password": adm["confirm_password"]}]:
+        x = admin.insert_one(adm)
+    return print('done')
+
+
+# adding_admin(ADMIN_SCHEMA)
+def fetch_admin(adm):
+    query = {"name": adm["name"]}
+    cred = {'name': adm["name"],
+            'password': adm['password']}
+    done = 1
+    if admin.count_documents(query) == 0:
+        response = {'message': "Account doesn't exists and Create a new Account"}
+        return False
+    return True
+
+# fetch_admin(ADMIN)

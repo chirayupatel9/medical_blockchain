@@ -15,17 +15,20 @@ def check_integrity():
     prev_block_hash = []
     total_transactions = []
     for transaction in all_trans:
-        for patient in all_patients:
-            transaction["transactions"] = str(transaction["transactions"])
-            patient["prev_block_hash"] = str(patient["prev_block_hash"])
-            prev_hash = patient
-            actual_hash = transaction['transactions']
-            print("pre and ac", prev_hash, ':;:', actual_hash)
-        # print(transaction['transactions'])
-        total_transactions.append(transaction["transactions"])
+        transaction["prev_block_hash"] = str(transaction["prev_block_hash"])
+        actual_hash = transaction['prev_block_hash']
+        print(':;:', actual_hash)
+        total_transactions.append(transaction["prev_block_hash"])
+    for patient in all_patients:
+        patient["prev_block_hash"] = str(patient["prev_block_hash"])
+        prev_block_hash = patient['prev_block_hash']
+        print(prev_block_hash)
+
+
+
     print('total len and total trans', len(blocks), len(total_transactions))
     # delete these lines afterwords
-    print("total transactions are", total_transactions)
+    # print("total transactions are", total_transactions)
 
     return results
 
