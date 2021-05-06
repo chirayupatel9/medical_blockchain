@@ -1,7 +1,6 @@
-import json
 
-from flask import jsonify
-from bson.json_util import dumps, loads
+from bson.json_util import dumps
+
 from db_config import patients, doctors, admin
 
 DOCTOR_USER_SCHEMA = {
@@ -78,8 +77,11 @@ patna = {
     'patientname': 'jondoe1', 'doctorname': 'doctor 2', "doctor_notes": 'corona'
 }
 # assigned_doc_to_pat(patna)
-
-
+def fetch_doctors():
+    fap = doctors.find({})
+    list_cur = list(fap)
+    json_data = dumps(list_cur)
+    return json_data
 # updating_patient(PATIENT_SCHEMA)
 
 # Function for Updating the patient

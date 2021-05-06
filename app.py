@@ -6,7 +6,7 @@ from flask import render_template, request
 from flask_cors import CORS
 
 from dbconnect import add_patient_to_db, add_doctor_to_db, fetch_all_patient
-from dbconnect import fetch_patient, assigned_doc_to_pat
+from dbconnect import fetch_patient, assigned_doc_to_pat,fetch_doctors
 from mongo import User
 
 app = Flask(__name__)
@@ -86,6 +86,9 @@ def view_patients():
 def afteradding(pname):
     return fetch_patient(pname)
 
+@app.route('/view_doctor')
+def viewdocs():
+    return fetch_doctors()
 
 @app.route('/update', methods=['PUT'])
 def updating_doc():
@@ -99,7 +102,7 @@ def updating_doc():
 
         assigned_doc_to_pat(_json)
         response = {'status': 200,
-                    "message": "Updated patient with doctor " + request.url + _json
+                    "message": "Updated patient with doctor " + request.url
                     }
         requests.post(new_tx_address,
                       json=_json,
