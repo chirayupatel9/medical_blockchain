@@ -26,24 +26,15 @@ supplement ongoing efforts to deal with the challenges of scalability, latency, 
 security and privacy in reference to the utilization of blockchain technology in healthcare.
 </p>
 
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562190-597b3aa7-1be1-40cf-92a4-22cc4d896e2f.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562224-49b01882-07fe-4c9f-98cd-2d7b91478110.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562260-5fb054c7-3da5-4c55-b51a-7bd60558cd15.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562354-3aeccd8a-fa4f-4c76-b2ae-684d961bf008.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562373-bfc24bbd-b771-4cff-9d00-a901fccb5d2b.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562466-8c5002ef-82ab-4a5a-b078-5ea6fd8391b7.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562488-31c4414a-eea5-4516-89a8-2f1225843eaf.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562514-3da9e1df-0e90-4c08-be8f-b125e3cea590.png)
-'/>
-<img src='![image](https://user-images.githubusercontent.com/22398921/156562530-86eab7f4-b8bb-4cb0-8ad1-ebdd0c5c5a80.png)
-'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562190-597b3aa7-1be1-40cf-92a4-22cc4d896e2f.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562224-49b01882-07fe-4c9f-98cd-2d7b91478110.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562260-5fb054c7-3da5-4c55-b51a-7bd60558cd15.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562354-3aeccd8a-fa4f-4c76-b2ae-684d961bf008.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562373-bfc24bbd-b771-4cff-9d00-a901fccb5d2b.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562466-8c5002ef-82ab-4a5a-b078-5ea6fd8391b7.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562488-31c4414a-eea5-4516-89a8-2f1225843eaf.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562514-3da9e1df-0e90-4c08-be8f-b125e3cea590.png'/>
+<img src='https://user-images.githubusercontent.com/22398921/156562530-86eab7f4-b8bb-4cb0-8ad1-ebdd0c5c5a80.png'/>
 
 <h4>Limitations </h4>
 <p>
